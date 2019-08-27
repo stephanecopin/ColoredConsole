@@ -6,13 +6,13 @@ use Getopt::Long;
 
 my %codeColors = 
 (
-    "0x1F3FB" => "#DB2C38",
-    "0x1F3FC" => "#41B645",
-    "0x1F3FD" => "#C67C48",
-    "0x1F3FE" => "#00A0BE",
-    "0x1F3FF" => "#B21889",
-    "0xF1EED" => "#7F7F7F",
-    "0x1F3FF" => "#FFA500",
+    "0x1F3FB" => "#52519C",
+    "0xF1EED" => "#6D7278",
+    "0x1F3FC" => "#9A6931",
+    "0xF2EED" => "#0091FF",
+    "0x1F3FD" => "#FFF700",
+    "0x1F3FE" => "#FF0000",
+    "0x1F3FF" => "#B620E0",
 );
 
 foreach my $fontName ("ColoredConsole-Bold")
