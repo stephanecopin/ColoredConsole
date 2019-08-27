@@ -11,6 +11,8 @@ my %codeColors =
     "0x1F3FD" => "#C67C48",
     "0x1F3FE" => "#00A0BE",
     "0x1F3FF" => "#B21889",
+    "0xF1EED" => "#7F7F7F",
+    "0x1F3FF" => "#FFA500",
 );
 
 foreach my $fontName ("ColoredConsole-Bold")
@@ -34,10 +36,29 @@ foreach my $fontName ("ColoredConsole-Bold")
     my $colorIndex = 0;
     foreach my $code (sort keys %codeColors)
     {
+        my $intCode = hex($code);
+        my $extraGlyphOutlineData = "";
+        if ($intCode >= 0x1F3FB && $intCode <= 0x1F3FF)
+        {
+            $extraGlyphOutlineData = "/><!-- contains no outline data -->"
+        }
+        else
+        {
+            $extraGlyphOutlineData = <<'END_EMPTY_INSTRUCTIONS';
+ xMin="0" yMin="0" xMax="0" yMax="0">
+      <contour/>
+      <instructions>
+        <assembly>
+          CALL[ ]	/* CallFunction */
+        </assembly>
+      </instructions>
+    </TTGlyph>
+END_EMPTY_INSTRUCTIONS
+        }
         $extraGlyphIDs .= sprintf qq(    <GlyphID name="%s"/>\n), $code;
         $extraMetrics .= sprintf qq(    <mtx name="%s" width="0" lsb="50"/>\n), $code;
         $extraMaps .= sprintf qq(    <map code="%s" name="%s"/>\n), $code, $code;
-        $extraGlyphs .= sprintf qq(    <TTGlyph name="%s"/><!-- contains no outline data -->\n), $code;
+        $extraGlyphs .= sprintf qq(    <TTGlyph name="%s"%s\n), $code, $extraGlyphOutlineData;
         $colors .= sprintf qq(      <color index="%d" value="%s"/>\n), $colorIndex++, $codeColors{$code};
     }
     
